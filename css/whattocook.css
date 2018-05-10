@@ -1,0 +1,184 @@
+@import url('https://fonts.googleapis.com/css?family=Berkshire+Swash|Nunito:200,300,400,600,700,800,900');
+
+*{
+    box-sizing:border-box;
+    border-collapse:collapse;
+}
+
+body, html{
+    background-color:rgb(24, 133, 73);
+    height:100%;
+    width:100%;
+    color:#fff;
+    text-align:center;
+    overflow:hidden;
+    font-family:'Nunito', sans-serif;
+    font-size:120%;
+    margin:0;
+}
+
+#navigation a{
+    font-size:18px;
+    color:#fff;
+    font-weight:bold;
+    padding:5px 0;
+    margin:5px;
+    text-decoration:none;
+    border-bottom:2px solid #fff;
+}
+
+nav{
+    text-align:left;
+    padding:10px;
+}
+
+#navigation{
+    width:100%;
+}
+
+#navigation li{
+    display:inline-block;
+    width:auto;
+}
+
+#navigation > *:last-child{
+    float:right;
+}
+
+#navigation a:hover,
+#navigation a:focus,
+#navigation a:active{
+    margin-left:0;
+    margin-right:0;
+    padding-left:5px;
+    padding-right:5px;
+}
+
+button{
+    background-color:rgb(8, 116, 204);
+    padding:20px;
+    border:none;
+    border-radius:3px;
+    color:#fff;
+    font-family:'Nunito', sans-serif;
+    font-size:120%;
+    cursor:pointer;
+}
+
+button:hover{
+    background-color:rgb(7, 89, 157);
+}
+
+button:focus{
+    outline:0;
+}
+
+.recipecontainer,
+#recipeRatings{
+    padding:40px 0;
+}
+
+.form{
+    padding:20px 0 40px;
+}
+
+#recipe{
+    display:none;
+    padding:10px;
+    width:40%;
+    margin:auto;
+    border-radius:4px;
+}
+
+.iconspan{
+    display:none;
+}
+
+.iconspan.show{
+    display:block;
+}
+
+i{
+    cursor:pointer;
+}
+
+label img:hover{
+    transform:scale(1.1);
+}
+
+input[type="text"],
+select{
+    border:none;
+    background-color:rgb(16, 85, 47);
+    color:#fff;
+    font-size:100%;
+    font-family:'Nunito', sans-serif;
+    padding:10px;
+}
+
+input[type="text"]:focus,
+select:focus{
+    outline:none;
+}
+
+ul, ol{
+    list-style-type:none;
+    padding:0;
+    width:40%;
+    margin:auto;
+}
+
+li{
+    text-align:left;
+    display:inline-block;
+    width:49%;
+}
+
+li > *:first-child{
+    font-size:18px;
+}
+
+li > *:last-child{
+    width:100%;
+}
+
+input[type="radio"]{
+    display:none;
+}
+
+#pickLanguage label img{
+    width:40px;
+    cursor:pointer;
+    padding:5px;
+    vertical-align:middle;
+}
+
+#pickLanguage li:last-child label img{
+    margin-right:5px;
+}
+
+#recipeRatings table{
+    margin:auto;
+}
+
+#recipeRatings td{
+    padding:10px;
+}
+
+#recipeRatings tr td:first-child{
+    border-right:1px solid #fff;
+}
+
+footer,
+footer a{
+    font-size:10px;
+    color:#fff;
+}
+
+footer{
+    bottom:0;
+    position:fixed;
+    padding:20px;
+    text-align:center;
+    width:100%;    
+}

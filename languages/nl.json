@@ -1,0 +1,11 @@
+{
+    "title" : "Wat zal ik koken?",
+    "mustcontain" : "Dit moet er in zitten:",
+    "mainbutton" : "Maak een recept!",
+    "prefs" : "Filter:",
+    "none" : "Geen",
+    "veg" : "Vegetarisch",
+    "healthy" : "Gezond",
+    "titlefavs" : "Populaire recepten",
+    "backbutton" : "Terug"
+}

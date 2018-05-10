@@ -1,0 +1,11 @@
+{
+    "title" : "What to cook?",
+    "mustcontain" : "This should be in it:",
+    "mainbutton" : "Give me a recipe",
+    "prefs" : "Preferences:",
+    "none" : "None",
+    "veg" : "Vegetarian",
+    "healthy" : "Healthy",
+    "titlefavs" : "Recipe Ratings",
+    "backbutton" : "Go back"
+}
