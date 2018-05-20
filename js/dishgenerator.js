@@ -6,7 +6,7 @@ $.getJSON('./data/proteins.json', function(prot){
     proteinsfull = prot;
 });
 
-var veggiesfull = []; 
+var veggiesfull = [];
 $.getJSON('./data/veggies.json', function(veg){
     veggiesfull = veg;
 });
@@ -55,6 +55,7 @@ function checkLanguage() {
         veggies = veggiesfull[2];
         proteins = proteinsfull[2];
         preparations = preparationsfull[2];
+        recipes = allRecipes[0];
         errormessage = "Foutje! Je mag alleen tekst invoeren."
     }
     else{
@@ -62,6 +63,7 @@ function checkLanguage() {
         veggies = veggiesfull[1];
         proteins = proteinsfull[1];
         preparations = preparationsfull[1];
+        recipes = allRecipes[1];
         errormessage = "Sorry, only text allowed!"
     }
 }
@@ -70,7 +72,10 @@ function checkLanguage() {
 //Create random carbs plus a preparation
 
 var rCarbs;
-var rPrep;
+var rCarbsNl;
+var rCarbsEn;
+var rPrepNl;
+var rPrepEn;
 var correspCarbs = [];
 
 function randomCarbs() {
@@ -89,15 +94,29 @@ function randomCarbs() {
     else {
         rCarbs = correspCarbs[Math.floor(Math.random() * correspCarbs.length)];
     }
-    
+
 //Determine preparation based on the selected ingredient
-    if (rCarbs == "aardappels" || rCarbs == "potatoes"){
-        rPrep = preparations[Math.floor(Math.random() * preparations.length)];
-        return rPrep + " " + rCarbs;
+    if (rCarbs == "aardappels"){
+        rPrepNl = preparations[Math.floor(Math.random() * preparations.length)];
+        rPrepEn = preparationsfull[1][(preparationsfull[2].indexOf(rPrepNl))];
+        rCarbsNl = rPrepNl + " " + rCarbs;
+        rCarbsEn = rPrepEn + " " + carbsfull[1][(carbsfull[2].indexOf(rCarbs))];
+    }
+    else if (rCarbs == "potatoes"){
+        rPrepEn = preparations[Math.floor(Math.random() * preparations.length)];
+        rPrepNl = preparationsfull[2][(preparationsfull[1].indexOf(rPrepEn))];
+        rCarbsEn = rPrepEn + " " + rCarbs;
+        rCarbsNl = rPrepNl + " " + carbsfull[2][(carbsfull[1].indexOf(rCarbs))];
     }
     else{
-        rPrep = "";
-        return rCarbs;
+        if (carbs == carbsfull[2]){
+            rCarbsNl = rCarbs;
+            rCarbsEn = carbsfull[1][(carbsfull[2].indexOf(rCarbs))];
+        }
+        else{
+            rCarbsEn = rCarbs;
+            rCarbsNl = carbsfull[2][(carbsfull[1].indexOf(rCarbs))];
+        }
     }
 }
 
@@ -106,10 +125,16 @@ function randomCarbs() {
 
 var cVeggies = [];
 var rVeggies;
+var rVeggiesNlArr;
+var rVeggiesEnArr;
+var rVeggiesNl = [];
+var rVeggiesEn = [];
 
 function randomVeggies() {
     checkLanguage();
     rVeggies = [];
+    rVeggiesNlArr = [];
+    rVeggiesEnArr = [];
     var nv;
 
 //Check on ingredients the recipe must contain and add these to the array, otherwise pick random ones
@@ -126,7 +151,7 @@ function randomVeggies() {
     else {
         rVeggies = cVeggies[Math.floor(Math.random() * 7) + 1];
     }
-    
+
 //Add ingredient one by one if it has not been added already
     for (var i = 0; i < nv; i++){
         rv = veggies[Math.floor(Math.random() * veggies.length)];
@@ -139,14 +164,39 @@ function randomVeggies() {
     }
     if (rVeggies.length > 0){
         if ($('#pickLanguage input[type=radio]:checked').attr('id') == 'nl'){
-            return rVeggies.slice(0, rVeggies.length - 1).join(", ") + " en " + rVeggies.slice(-1);
+            rVeggiesNlArr = rVeggies;
+            rVeggiesNl = rVeggies.slice(0, rVeggies.length - 1).join(", ") + " en " + rVeggies.slice(-1);
+            rVeggies.forEach(function(vegEn){
+                rVeggiesEnArr.push(veggiesfull[1][(veggiesfull[2].indexOf(vegEn))]);
+            });
+            rVeggiesEn = rVeggiesEnArr.slice(0, rVeggiesEnArr.length - 1).join(", ") + " and " + rVeggiesEnArr.slice(-1);
         }
         else{
-            return rVeggies.slice(0, rVeggies.length - 1).join(", ") + " and " + rVeggies.slice(-1);
+            rVeggiesEnArr = rVeggies;
+            rVeggiesEn = rVeggies.slice(0, rVeggies.length - 1).join(", ") + " and " + rVeggies.slice(-1);
+            rVeggies.forEach(function(vegNl){
+                rVeggiesNlArr.push(veggiesfull[2][(veggiesfull[1].indexOf(vegNl))]);
+            });
+            rVeggiesNl = rVeggiesNlArr.slice(0, rVeggiesNlArr.length - 1).join(", ") + " and " + rVeggiesNlArr.slice(-1);
         }
     }
     else{
-        return rVeggies.join(" ");
+        if ($('#pickLanguage input[type=radio]:checked').attr('id') == 'nl'){
+            rVeggiesNlArr = rVeggies;
+            rVeggiesNl = rVeggies.join(" ");
+            rVeggies.forEach(function(vegEn){
+                rVeggiesEnArr.push(veggiesfull[1][(veggiesfull[2].indexOf(vegEn))]);
+            });
+            rVeggiesEn = rVeggiesEnArr.join(" ");
+        }
+        else{
+            rVeggiesEnArr = rVeggies;
+            rVeggiesEn = rVeggies.join(" ");
+            rVeggies.forEach(function(vegNl){
+                rVeggiesNlArr.push(veggiesfull[2][(veggiesfull[1].indexOf(vegNl))]);
+            });
+            rVeggiesNl = rVeggiesNlArr.join(" ");
+        }
     }
 }
 
@@ -155,10 +205,14 @@ function randomVeggies() {
 
 var cProteins = [];
 var rProteins;
+var rProteinsNl;
+var rProteinsEn;
 
-function randomProteins() { 
+function randomProteins() {
     checkLanguage();
     rProteins = [];
+    rProteinsNl = [];
+    rProteinsEn = [];
     var np;
 
 //Check on ingredients the recipe must contain and add these to the array, otherwise pick random ones
@@ -191,70 +245,8 @@ function randomProteins() {
             continue;
         }
     }
-    return rProteins.join(", ");
-}
 
-
-//Translate carbs into two different strings to show in favourites list
-
-var rCarbsNl;
-var rCarbsEn;
-
-function translateCarbs() {
-    if (carbs == carbsfull[2]){
-        rCarbsNl = rCarbs;
-        rCarbsEn = carbsfull[1][(carbsfull[2].indexOf(rCarbs))];
-    }
-    else{
-        rCarbsEn = rCarbs;
-        rCarbsNl = carbsfull[2][(carbsfull[1].indexOf(rCarbs))];
-    }
-}
-
-
-//Translate preparation into two different strings to show in favourites list
-
-var rPrepNl;
-var rPrepEn;
-
-function translatePrep() {
-    if (preparations == preparationsfull[2]){
-        rPrepNl = rPrep;
-        rPrepEn = preparationsfull[1][(preparationsfull[2].indexOf(rPrep))];
-    }
-    else{
-        rPrepEn = rPrep;
-        rPrepNl = preparationsfull[2][(preparationsfull[1].indexOf(rPrep))];
-    }
-}
-
-//Translate veggies into two different arrays to show in favourites list
-
-var rVeggiesNl = [];
-var rVeggiesEn = [];
-
-function translateVeggies() {
-    if (veggies == veggiesfull[2]){ 
-        rVeggiesNl = rVeggies;
-        rVeggies.forEach(function(vegEn){
-            rVeggiesEn.push(veggiesfull[1][(veggiesfull[2].indexOf(vegEn))]);
-        });
-    }
-    else {
-        rVeggiesEn = rVeggies;
-        rVeggies.forEach(function(vegNl){
-            rVeggiesNl.push(veggiesfull[2][(veggiesfull[1].indexOf(vegNl))]);
-        });
-    }
-}
-
-
-//Translate proteins into two different arrays to show in favourites list
-
-var rProteinsNl = [];
-var rProteinsEn = [];
-
-function translateProteins() {
+//Translate proteins and give all translations
     if (proteins == proteinsfull[2]){
         rProteinsNl = rProteins;
         rProteins.forEach(function(protEn){
@@ -273,18 +265,22 @@ function translateProteins() {
 //Combine carbs, veggies and proteins
 
 var string;
-var finalStr;
+var dutchRecipe;
+var englishRecipe;
 
 function combineIngr() {
+    randomCarbs();
+    randomProteins();
+    randomVeggies();
+    dutchRecipe = rCarbsNl.charAt(0).toUpperCase() + rCarbsNl.slice(1) + " met " + rProteinsNl.join(", ") + ", " + rVeggiesNl;
+    englishRecipe = rCarbsEn.charAt(0).toUpperCase() + rCarbsEn.slice(1) + " with " + rProteinsEn.join(", ") + ", " + rVeggiesEn;
     if ($('#pickLanguage input[type=radio]:checked').attr('id') == 'nl'){
-        string = (randomCarbs() + " met " + randomProteins() + ", " + randomVeggies());
+        return dutchRecipe;
     }
     else{
-        string = (randomCarbs() + " with " + randomProteins() + ", " + randomVeggies());
+        return englishRecipe;
     }
-    return finalStr = string.charAt(0).toUpperCase() + string.slice(1);
 };
-
 
 //Show the recipe and make the icons empty
 
@@ -292,7 +288,8 @@ function showRecipe() {
     $("#recipe").css("display", "block").html(combineIngr());
     $(".iconspan").addClass("show");
     $(".iconspan .fas").removeClass("fas").addClass("far");
-//Cancel default button behaviour to refresh page  
+
+//Cancel default button behaviour to refresh page
     return false;
 }
 
@@ -304,26 +301,22 @@ var proteins_str;
 var veggies_str;
 
 $(".iconspan i").click(function(){
-    translateCarbs();
-    translateVeggies();
-    translateProteins();
-    translatePrep();
     proteins_en = rProteinsEn.join(", ");
     proteins_nl = rProteinsNl.join(", ");
-    veggies_en = rVeggiesEn.join(", ");
-    veggies_nl = rVeggiesNl.join(", ");
+    veggies_en = rVeggiesEnArr.join(", ");
+    veggies_nl = rVeggiesNlArr.join(", ");
     $(this).toggleClass("far fas");
     $(this).siblings().removeClass("fas").addClass("far");
     if ($(".fa-thumbs-up").hasClass("fas")){
         rating = 1;
         $.post("./thumbs.php",
-            {recipe:finalStr, rprep_en:rPrepEn, rprep_nl:rPrepNl, rcarbs_en:rCarbsEn, rcarbs_nl:rCarbsNl, rproteins_en:proteins_en, rproteins_nl:proteins_nl, rveggies_en:veggies_en, rveggies_nl:veggies_nl, rating:rating}
+            {recipe_en:englishRecipe, recipe_nl:dutchRecipe, rprep_en:rPrepEn, rprep_nl:rPrepNl, rcarbs_en:rCarbsEn, rcarbs_nl:rCarbsNl, rproteins_en:proteins_en, rproteins_nl:proteins_nl, rveggies_en:veggies_en, rveggies_nl:veggies_nl, rating:rating}
         );
     }
     else if ($(".fa-thumbs-down").hasClass("fas")){
         rating = -1;
         $.post("./thumbs.php",
-            {recipe:finalStr, rprep_en:rPrepEn, rprep_nl:rPrepNl, rcarbs_en:rCarbsEn, rcarbs_nl:rCarbsNl, rproteins_en:proteins_en, rproteins_nl:proteins_nl, rveggies_en:veggies_en, rveggies_nl:veggies_nl, rating:rating}
+            {recipe_en:englishRecipe, recipe_nl:dutchRecipe, rprep_en:rPrepEn, rprep_nl:rPrepNl, rcarbs_en:rCarbsEn, rcarbs_nl:rCarbsNl, rproteins_en:proteins_en, rproteins_nl:proteins_nl, rveggies_en:veggies_en, rveggies_nl:veggies_nl, rating:rating}
         );
     }
 });
@@ -335,9 +328,19 @@ $('#pickLanguage input[type=radio]').change(function(){
     var langId = $(this).attr('id');
     if (langId == 'nl'){
         $.getJSON('./languages/nl.json', translate);
+        $("#recipeRatings").empty();
+        for(var i = 0; i < ratings.length; i++){
+            $('#recipeRatings').append("<tr><td>" + dutchRecipes[i] + "</td><td>" + ratings[i] + "</td></tr>");
+        }
+        $("#recipe").html(dutchRecipe);
     }
     else{
         $.getJSON('./languages/en.json', translate);
+        $("#recipeRatings").empty();
+        for(var i = 0; i < ratings.length; i++){
+            $('#recipeRatings').append("<tr><td>" + englishRecipes[i] + "</td><td>" + ratings[i] + "</td></tr>");
+        }
+        $("#recipe").html(englishRecipe);
     }
 });
 
@@ -349,3 +352,25 @@ function translate(translations){
         $(this).html(content);
     });
 }
+
+
+//Translate shown recipe
+
+var allRecipes = [];
+var dutchRecipes = [];
+var englishRecipes = [];
+var ratings = [];
+
+$.getJSON('./data/recipes.json', function(recipes_raw){
+    allRecipes = recipes_raw;
+    dutchRecipes = allRecipes[0];
+    englishRecipes = allRecipes[1];
+    ratings = allRecipes[2];
+});
+
+$(function() {
+    checkLanguage();
+    for(var i = 0; i < ratings.length; i++){
+        $('#recipeRatings').append("<tr><td>" + recipes[i] + "</td><td>" + ratings[i] + "</td></tr>");
+    }
+});
