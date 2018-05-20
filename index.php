@@ -42,10 +42,7 @@
     </head>
     <body>
         <nav>
-            <ul id="navigation">
-                <li>
-                    <a href="leaderboards.php" langkey="titlefavs">Recipe Ratings</a>
-                </li>
+            <ul class="navigation nav-top">
                 <span id="pickLanguage">
                     <li>
                         <input type="radio" name="language" id="nl"/>
@@ -84,8 +81,18 @@
                 <i class="far fa-thumbs-down"></i>
                 <i class="far fa-thumbs-up"></i>
             </div>
+            <div id="imagecontainer">
+            </div>
         </form>
-        <footer></footer>
+        <footer>
+            <nav>
+                <ul class="navigation nav-bottom">
+                    <li>
+                        <a href="leaderboards.php" langkey="titlefavs">Recipe Ratings</a>
+                    </li>
+                </ul>
+            </nav>
+        </footer>
         <script src="js/jquery-3.3.1.js"></script>
         <script src="js/dishgenerator.js" type="text/javascript"></script>
     </body>

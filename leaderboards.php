@@ -28,11 +28,8 @@
         <link href="css/whattocook.css" rel="stylesheet"/>
     </head>
     <body>
-    <nav>
-            <ul id="navigation">
-                <li>
-                    <a href="index.php" langkey="backbutton">Go back</a>
-                </li>
+        <nav>
+            <ul class="navigation nav-top">
                 <span id="pickLanguage">
                     <li>
                         <input type="radio" name="language" id="nl" value="nl"/>
@@ -59,7 +56,15 @@
                 ?>
             </table>
         </div>
-        <footer></footer>
+        <footer>
+            <nav>
+                <ul class="navigation nav-bottom">
+                    <li>
+                        <a href="index.php" langkey="backbutton">Go back</a>
+                    </li>
+                </ul>
+            </nav>
+        </footer>
         <script src="js/jquery-3.3.1.js"></script>
         <script src="js/dishgenerator.js" type="text/javascript"></script>
     </body>
