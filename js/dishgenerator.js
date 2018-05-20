@@ -281,11 +281,22 @@ function combineIngr() {
 
 //Show the recipe and make the icons empty
 
+var ingred;
+
 function showRecipe() {
+    $("#imagecontainer").empty();
     $("#recipe").css("display", "block").html(combineIngr());
     $(".iconspan").addClass("show");
     $(".iconspan .fas").removeClass("fas").addClass("far");
-
+    ingred = rProteinsEn.concat(rVeggiesEnArr, rCarbsEn);
+    $(ingred).each(function(i){
+        var image = new Image();
+        if (ingred[i])
+        image.src = "images/ingredients/"+ingred[i].replace(/\s+/g, '')+".svg";
+        image.onload = function(){
+            $("#imagecontainer").append(image);
+        }
+    });
 //Cancel default button behaviour to refresh page
     return false;
 }
