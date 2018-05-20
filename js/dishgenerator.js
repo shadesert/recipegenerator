@@ -55,7 +55,6 @@ function checkLanguage() {
         veggies = veggiesfull[2];
         proteins = proteinsfull[2];
         preparations = preparationsfull[2];
-        recipes = allRecipes[0];
         errormessage = "Foutje! Je mag alleen tekst invoeren."
     }
     else{
@@ -63,7 +62,6 @@ function checkLanguage() {
         veggies = veggiesfull[1];
         proteins = proteinsfull[1];
         preparations = preparationsfull[1];
-        recipes = allRecipes[1];
         errormessage = "Sorry, only text allowed!"
     }
 }
@@ -264,7 +262,6 @@ function randomProteins() {
 
 //Combine carbs, veggies and proteins
 
-var string;
 var dutchRecipe;
 var englishRecipe;
 
@@ -297,8 +294,6 @@ function showRecipe() {
 //Toggle the like and add the recipe to the database
 
 var rating;
-var proteins_str;
-var veggies_str;
 
 $(".iconspan i").click(function(){
     proteins_en = rProteinsEn.join(", ");
@@ -330,7 +325,7 @@ $('#pickLanguage input[type=radio]').change(function(){
         $.getJSON('./languages/nl.json', translate);
         $("#recipeRatings").empty();
         for(var i = 0; i < ratings.length; i++){
-            $('#recipeRatings').append("<tr><td>" + dutchRecipes[i] + "</td><td>" + ratings[i] + "</td></tr>");
+            $('#recipeRatings').append("<tr><td>" + allRecipes[0][i] + "</td><td>" + ratings[i] + "</td></tr>");
         }
         $("#recipe").html(dutchRecipe);
     }
@@ -338,7 +333,7 @@ $('#pickLanguage input[type=radio]').change(function(){
         $.getJSON('./languages/en.json', translate);
         $("#recipeRatings").empty();
         for(var i = 0; i < ratings.length; i++){
-            $('#recipeRatings').append("<tr><td>" + englishRecipes[i] + "</td><td>" + ratings[i] + "</td></tr>");
+            $('#recipeRatings').append("<tr><td>" + allRecipes[1][i] + "</td><td>" + ratings[i] + "</td></tr>");
         }
         $("#recipe").html(englishRecipe);
     }
@@ -357,20 +352,20 @@ function translate(translations){
 //Translate shown recipe
 
 var allRecipes = [];
-var dutchRecipes = [];
-var englishRecipes = [];
 var ratings = [];
+var recipes;
 
 $.getJSON('./data/recipes.json', function(recipes_raw){
     allRecipes = recipes_raw;
-    dutchRecipes = allRecipes[0];
-    englishRecipes = allRecipes[1];
     ratings = allRecipes[2];
-});
-
-$(function() {
-    checkLanguage();
-    for(var i = 0; i < ratings.length; i++){
-        $('#recipeRatings').append("<tr><td>" + recipes[i] + "</td><td>" + ratings[i] + "</td></tr>");
+    if ($('#pickLanguage input[type=radio]:checked').attr('id') == 'nl'){
+        recipes = allRecipes[0];
     }
+    else{
+        recipes = allRecipes[1];
+    }
+    $("#recipeRatings").empty();
+    $(recipes).each(function(i){
+        $('#recipeRatings').append("<tr><td>" + recipes[i] + "</td><td>" + ratings[i] + "</td></tr>");
+    });
 });

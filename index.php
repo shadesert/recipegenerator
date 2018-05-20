@@ -85,9 +85,7 @@
                 <i class="far fa-thumbs-up"></i>
             </div>
         </form>
-        <footer>
-            <div langkey="rights">Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
-        </footer>
+        <footer></footer>
         <script src="js/jquery-3.3.1.js"></script>
         <script src="js/dishgenerator.js" type="text/javascript"></script>
     </body>

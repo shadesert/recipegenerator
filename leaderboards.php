@@ -9,7 +9,12 @@
         $englishRecipes[] = $result["recipe_en"];
         $ratings[] = $result["SUM(rating)"];
     }
-    file_put_contents("data/recipes.json", json_encode(array($dutchRecipes, $englishRecipes, $ratings)));
+    if(isset($dutchRecipes) && isset($englishRecipes) && isset($ratings)){
+        file_put_contents("data/recipes.json", json_encode(array($dutchRecipes, $englishRecipes, $ratings)));
+    }
+    else{
+        echo "There are no liked or unliked recipes yet...";
+    }
 ?>
 
 <!DOCTYPE html>
@@ -42,12 +47,20 @@
         </nav>
         <h1 langkey="titlefavs">Recipe Ratings</h1>
         <div>
-            <table id="recipeRatings"></table>
+            <table id="recipeRatings">
+                <?php
+                    foreach($statement->fetchAll(PDO::FETCH_ASSOC) as $result){
+                        echo
+                            "<tr>
+                                <td>{$result['recipe_en']}</td>
+                                <td>{$result['SUM(rating)']}</td>
+                            </tr>";
+                    }
+                ?>
+            </table>
         </div>
-        <footer>
-            <div>Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
-        </footer>
+        <footer></footer>
         <script src="js/jquery-3.3.1.js"></script>
-        <script src="js/dishgenerator.js?n=1" type="text/javascript"></script>
+        <script src="js/dishgenerator.js" type="text/javascript"></script>
     </body>
 </html>
