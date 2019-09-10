@@ -173,7 +173,10 @@ input[type="radio"]{
     position:absolute;
     left:0;
     height:100%;
+<<<<<<< HEAD
     max-width:30%;
+=======
+>>>>>>> be8f939faf090862a9a0191a3026b1d1c3a566fc
     top:0;
     padding:40px;
 }
