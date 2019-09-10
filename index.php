@@ -1,4 +1,11 @@
 <?php
+    session_start();
+
+    if(isset($_POST['language'])){
+        /*$lang_id = $_POST['language'];*/
+        $_SESSION['language'] = $_POST['language'];
+    }
+
     include 'connect_cook.php';
 
     $statementproteins = $connection->prepare("SELECT id, protein, protein_dutch FROM proteins;");
@@ -68,7 +75,7 @@
                         <select id="prefs">
                             <option langkey="none">None</option>
                             <option langkey="veg">Vegetarian</option>
-                            <option langkey="healthy">Healthy</option>
+                            <!--option langkey="healthy">Healthy</option-->
                         </select>
                     </li>
                 </ul>

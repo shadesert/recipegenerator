@@ -328,6 +328,15 @@ $(".iconspan i").click(function(){
 });
 
 
+//Get the language choice made in the PHP session
+
+var langChoice = $('#pickLanguage input[type=radio]:checked').attr('id');
+
+$.post("index.php", {language:langChoice});
+
+console.log(langChoice);
+
+
 //Translate the HTML content
 
 $('#pickLanguage input[type=radio]').change(function(){

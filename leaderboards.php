@@ -1,4 +1,6 @@
 <?php
+    session_start();
+
     include 'connect_cook.php';
 
     $statement = $connection->prepare("SELECT SUM(rating), recipe_en, recipe_nl FROM whattocook.favourites WHERE rating != 0 GROUP BY recipe_en ORDER BY SUM(rating) DESC;");
